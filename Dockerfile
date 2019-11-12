@@ -9,4 +9,5 @@ RUN apt-get -q update && \
       libblocksruntime-dev libcurl4-openssl-dev \
       systemtap-sdt-dev tzdata rsync wget
 
-RUN git clone https://github.com/swiftwasm/swift.git
+RUN git clone https://github.com/swiftwasm/swiftwasm-sdk.git
+RUN cd swiftwasm-sdk && git submodule update --init
