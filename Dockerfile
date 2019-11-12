@@ -8,3 +8,5 @@ RUN apt-get -q update && \
       libpython-dev libncurses5-dev pkg-config \
       libblocksruntime-dev libcurl4-openssl-dev \
       systemtap-sdt-dev tzdata rsync wget
+
+RUN git clone https://github.com/swiftwasm/swift.git
