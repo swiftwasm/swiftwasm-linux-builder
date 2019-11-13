@@ -19,11 +19,11 @@ WORKDIR /build
 RUN git clone https://github.com/swiftwasm/swiftwasm-sdk.git
 RUN cd swiftwasm-sdk && git submodule update --init
 
-RUN wget -O wasi-sdk.tar.gz https://github.com/swiftwasm/wasi-sdk/releases/download/20191022.1/wasi-sdk-4.39g3025a5f47c04-linux.tar.gz && \
+RUN cd swiftwasm-sdk && wget -O wasi-sdk.tar.gz https://github.com/swiftwasm/wasi-sdk/releases/download/20191022.1/wasi-sdk-4.39g3025a5f47c04-linux.tar.gz && \
       tar xfz wasi-sdk.tar.gz && \
       mv wasi-sdk-4.39g3025a5f47c04 ./wasi-sdk
 
-RUN wget -O icu.tar.xz "https://github.com/swiftwasm/icu4c-wasi/releases/download/20190421.3/icu4c-wasi.tar.xz" && \
+RUN cd swiftwasm-sdk && wget -O icu.tar.xz "https://github.com/swiftwasm/icu4c-wasi/releases/download/20190421.3/icu4c-wasi.tar.xz" && \
       tar xf icu.tar.xz
 
 WORKDIR /build/swiftwasm-sdk/swift
