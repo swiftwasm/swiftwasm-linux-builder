@@ -14,7 +14,9 @@ RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/nul
 RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
       apt-get -q update && apt-get -q install -y cmake
 
-RUN useradd -m builder && echo "builder:builder" | chpasswd && adduser builder sudo
+RUN adduser --disabled-password --gecos '' builder
+RUN adduser builder sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER builder
 
