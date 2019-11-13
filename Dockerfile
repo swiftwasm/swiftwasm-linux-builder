@@ -14,9 +14,11 @@ RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/nul
 RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
       apt-get -q update && apt-get -q install -y cmake
 
-RUN useradd -ms /bin/bash builder && mkdir -p /home/builder/build
+RUN useradd -ms /bin/bash builder
 
 USER builder
+
+RUN mkdir -p /home/builder/build
 
 WORKDIR /home/builder/build
 
