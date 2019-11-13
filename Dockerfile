@@ -8,22 +8,31 @@ RUN apt-get -q update && \
       libedit-dev libxml2-dev libsqlite3-dev swig \
       libpython-dev libncurses5-dev pkg-config \
       libblocksruntime-dev libcurl4-openssl-dev \
-      systemtap-sdt-dev tzdata rsync wget
+      systemtap-sdt-dev tzdata rsync wget screen htop sudo
 
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add -
 RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
       apt-get -q update && apt-get -q install -y cmake
 
-WORKDIR /build
+RUN adduser --disabled-password --gecos '' builder
+RUN adduser builder sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-RUN git clone https://github.com/swiftwasm/swiftwasm-sdk.git
-RUN cd swiftwasm-sdk && git submodule update --init
+USER builder
 
-RUN wget -O wasi-sdk.tar.gz https://github.com/swiftwasm/wasi-sdk/releases/download/20190421.6/wasi-sdk-3.19gefb17cb478f9.m-linux.tar.gz && \
+RUN mkdir -p /home/builder/source
+
+WORKDIR /home/builder/source
+
+RUN git clone https://github.com/swiftwasm/swift.git
+RUN cd swift && ./utils/update-checkout --clone --scheme wasm
+
+RUN wget -O wasi-sdk.tar.gz https://github.com/swiftwasm/wasi-sdk/releases/download/20191022.1/wasi-sdk-4.39g3025a5f47c04-linux.tar.gz && \
       tar xfz wasi-sdk.tar.gz && \
-      mv wasi-sdk-3.19gefb17cb478f9+m/opt/wasi-sdk ./wasi-sdk
+      mv wasi-sdk-4.39g3025a5f47c04 ./wasi-sdk && \
+      mv wasi-sdk/share/wasi-sysroot wasi-sdk/share/sysroot
 
 RUN wget -O icu.tar.xz "https://github.com/swiftwasm/icu4c-wasi/releases/download/20190421.3/icu4c-wasi.tar.xz" && \
       tar xf icu.tar.xz
 
-WORKDIR /build/swiftwasm-sdk/swift
+WORKDIR /home/builder/source/swift
