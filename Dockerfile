@@ -8,13 +8,17 @@ RUN apt-get -q update && \
       libedit-dev libxml2-dev libsqlite3-dev swig \
       libpython-dev libncurses5-dev pkg-config \
       libblocksruntime-dev libcurl4-openssl-dev \
-      systemtap-sdt-dev tzdata rsync wget
+      systemtap-sdt-dev tzdata rsync wget screen htop
 
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add -
 RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
       apt-get -q update && apt-get -q install -y cmake
 
-WORKDIR /build
+RUN useradd -ms /bin/bash builder && mkdir -p /home/builder/build
+
+USER builder
+
+WORKDIR /home/builder/build
 
 RUN git clone https://github.com/swiftwasm/swiftwasm-sdk.git
 RUN cd swiftwasm-sdk && git submodule update --init
@@ -26,4 +30,4 @@ RUN cd swiftwasm-sdk && wget -O wasi-sdk.tar.gz https://github.com/swiftwasm/was
 RUN cd swiftwasm-sdk && wget -O icu.tar.xz "https://github.com/swiftwasm/icu4c-wasi/releases/download/20190421.3/icu4c-wasi.tar.xz" && \
       tar xf icu.tar.xz
 
-WORKDIR /build/swiftwasm-sdk/swift
+WORKDIR /home/builder/build/swiftwasm-sdk/swift
