@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: builder
-          image: maxdesiatov/swiftwasm-builder:update-wasi-sdk
+          image: maxdesiatov/swiftwasm-builder:latest
           imagePullPolicy: Always
           # Just spin & wait forever
           command: [ "/bin/bash", "-c", "--" ]
