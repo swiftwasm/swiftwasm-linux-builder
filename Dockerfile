@@ -8,7 +8,7 @@ RUN apt-get -q update && \
       libedit-dev libxml2-dev libsqlite3-dev swig \
       libpython-dev libncurses5-dev pkg-config \
       libblocksruntime-dev libcurl4-openssl-dev \
-      systemtap-sdt-dev tzdata rsync wget screen htop sudo
+      systemtap-sdt-dev tzdata rsync wget screen htop sudo vim
 
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add -
 RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
