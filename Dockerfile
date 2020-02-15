@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -q update && \
     apt-get -q install -y \
-      apt-transport-https ca-certificates git \
+      apt-transport-https ca-certificates git tzdata \
       software-properties-common screen htop sudo vim
 
 RUN adduser --disabled-password --gecos '' builder
