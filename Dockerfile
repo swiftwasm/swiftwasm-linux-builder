@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV DEBIAN_FRONTEND=noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -q update && \
     apt-get -q install -y \
       apt-transport-https ca-certificates git \
