@@ -19,9 +19,13 @@ WORKDIR /home/builder/source
 RUN git clone https://github.com/swiftwasm/swift.git
 RUN cd swift && git checkout maxd/split-ci-scripts && \
     ./utils/webassembly/linux/install-dependencies.sh
-    
+
 RUN cd swift && \
     ./utils/webassembly/build-linux.sh --release --debug-swift-stdlib --verbose && \
     rm -rf ../build/Ninja-ReleaseAssert+stdlib-DebugAssert/swift-linux-x86_64
 
 WORKDIR /home/builder/source/swift
+
+COPY build.sh /home/builder/source/swift/build.sh
+
+CMD build.sh $GITHUB_SHA
