@@ -18,7 +18,6 @@ WORKDIR /home/builder/source
 
 RUN git clone https://github.com/swiftwasm/swift.git
 RUN cd swift && git checkout maxd/split-ci-scripts && \
-    chmod +x ./utils/webassembly/linux/install-dependencies.sh && \
     ./utils/webassembly/linux/install-dependencies.sh
     
 RUN cd swift && \
