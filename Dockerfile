@@ -28,4 +28,6 @@ WORKDIR /home/builder/source/swift
 
 COPY build.sh /home/builder/source/swift/build.sh
 
+RUN chmod +x build.sh
+
 CMD build.sh $GITHUB_SHA
