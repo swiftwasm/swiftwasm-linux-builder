@@ -17,7 +17,7 @@ RUN mkdir -p /home/builder/source
 WORKDIR /home/builder/source
 
 RUN git clone https://github.com/swiftwasm/swift.git
-RUN cd swift && git checkout maxd/split-ci-scripts && \
+RUN cd swift && \
     ./utils/webassembly/linux/install-dependencies.sh
 
 RUN cd swift && \
