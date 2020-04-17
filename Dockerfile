@@ -14,6 +14,8 @@ RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/nul
 RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
       apt-get -q update && apt-get -q install -y cmake
 
+RUN apt-get clean
+
 RUN adduser --disabled-password --gecos '' builder --shell /bin/bash
 RUN adduser builder sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -25,6 +27,7 @@ RUN mkdir -p /home/builder/source
 WORKDIR /home/builder/source
 
 RUN git clone https://github.com/swiftwasm/swift.git
+RUN df -h
 RUN cd swift && bash ./utils/webassembly/ci.sh
 
 WORKDIR /home/builder/source/swift
