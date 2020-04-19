@@ -9,9 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+    - name: Publish Image
+      uses: matootie/github-docker@v2.2.2
       with:
-        name: maxdesiatov/swiftwasm-builder
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        accessToken: ${{ secrets.GITHUB_TOKEN }}
