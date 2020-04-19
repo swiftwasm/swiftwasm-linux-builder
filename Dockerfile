@@ -4,15 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -q update && \
     apt-get -q install -y \
       apt-transport-https ca-certificates git ninja-build clang python \
-      software-properties-common uuid-dev libicu-dev icu-devtools libbsd-dev \
-      libedit-dev libxml2-dev libsqlite3-dev swig \
-      libpython-dev libncurses5-dev pkg-config \
-      libblocksruntime-dev libcurl4-openssl-dev \
-      systemtap-sdt-dev tzdata rsync wget screen htop sudo vim
-
-RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add -
-RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
-      apt-get -q update && apt-get -q install -y cmake
+      software-properties-common curl tzdata screen htop sudo vim
 
 RUN apt-get clean
 
@@ -28,6 +20,6 @@ WORKDIR /home/builder/source
 
 RUN git clone https://github.com/swiftwasm/swift.git
 RUN df -h
-RUN cd swift && bash ./utils/webassembly/ci.sh
+RUN cd swift && bash ./utils/webassembly/ci.sh || true
 
 WORKDIR /home/builder/source/swift
